@@ -5,11 +5,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CasaDoCodigo.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace CasaDoCodigo.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ControllerPai
     {
+        public HomeController(LojaContexto lojaContexto, IHttpContextAccessor contextAcessor) : base(lojaContexto, contextAcessor)
+        {
+        }
+
         public IActionResult Index()
         {
             return View();

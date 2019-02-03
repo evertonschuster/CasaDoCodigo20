@@ -18,8 +18,26 @@ namespace CasaDoCodigo.Models
             Cadastro = cadastro;
         }
 
+        public Pedido(int id, Cadastro cadastro)
+        {
+            this.Id = id;
+            if (cadastro == null)
+            {
+                Cadastro = new Cadastro();
+            }
+            else
+            {
+                Cadastro = cadastro;
+            }
+        }
+
         public List<ItemPedido> Itens { get; private set; } = new List<ItemPedido>();
         [Required]
         public virtual Cadastro Cadastro { get; private set; }
+
+        internal void AtualizaCadastro(Cadastro cadastro)
+        {
+            this.Cadastro = cadastro;
+        }
     }
 }

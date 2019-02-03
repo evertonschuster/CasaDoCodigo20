@@ -1,4 +1,5 @@
 ﻿using CasaDoCodigo.Models;
+using CasaDoCodigo.Uteis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +7,19 @@ using System.Threading.Tasks;
 
 namespace CasaDoCodigo.DAO
 {
-    public class ProdutoDao : DAO<Produto>
+    public class ProdutoDAO : DAO<Produto>
     {
-        public ProdutoDao(LojaContexto context) : base(context)
+        public ProdutoDAO(IDAO dao) : base(dao)
         {
         }
 
+        public ProdutoDAO(LojaContexto context, Session session) : base(context, session)
+        {
+        }
+
+        internal Produto getByCodigo(Produto produto)
+        {
+            return dbSet.Where(p => p.Codigo == produto.Codigo).FirstOrDefault();
+        }
     }
 }

@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Carrinho";
+}
+@model CarrinhoViewModel
+<h3>Meu Carrinho</h3>
+<form asp-action="Caarrinho"></form>
+<div class="panel panel-default" >
+    <div class="panel-heading" grid>
+        <div class="row">
+            <div class="col-md-6">
+                Item
+            </div>
+            <div class="col-md-2 text-center">
+                Preço Unitário
+            </div>
+            <div class="col-md-2 text-center">
+                Quantidade
+            </div>
+            <div class="col-md-2">
+                <span class="pull-right">
+                    Subtotal
+                </span>
+            </div>
+        </div>
+    </div>
+
+    @if (Model == null)
+    {
+
+    }
+    else
+    {
+        foreach (var item in Model.Itens)
+        {
+            var produto = item.Produto;
+            <div class="panel-body" rowItem>
+                <div class="row row-center linha-produto" codigoItem="@produto.Codigo">
+                    <div class="col-md-3">
+                        <img class="img-produto-carrinho" src="/images/produtos/large_@(produto.Codigo).jpg" />
+                    </div>
+                    <div class="col-md-3" nome>@(produto.Nome)</div>
+                    <div class="col-md-2 text-center" preco>R$ @(produto.Preco)</div>
+                    <div class="col-md-2 text-center">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" onclick="carrinho.RemoverItemCarrinho(this)">
+                                    <span class="glyphicon-minus"></span>
+                                </button>
+                            </span>
+                            <input type="text" quantidade value="@(item.Quantidade)"
+                                   class="form-control text-center" onblur="carrinho.AtualizarItemCarrinho(this)" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" onclick="carrinho.AdicionarItemCarrinho(this)">
+                                    <span class="glyphicon-plus"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        R$ <span class="pull-right" subtotal>
+                            @(produto.Preco)
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        }
+    }
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-md-10">
+                <span numero-itens>
+                    Total: @(Model.TotalItens) itens
+                </span>
+            </div>
+            <div class="col-md-2">
+                Total: R$ <span class="pull-right" total>
+                    @(Model.TotalCompra)
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <a class="btn btn-success" href="/">
+                Adicionar Produtos
+            </a>
+            <a class="btn btn-success" href="/pedido/Cadastro">
+                Preencher Cadastro
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/pedido/Carrinho.js">
+    </script>
+}
